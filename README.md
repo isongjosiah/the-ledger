@@ -18,7 +18,6 @@ This document provides an overview of the backend project design, key architectu
 
 ## Overview
 
-
 The system is designed to handle user account management and transaction operations in a scalable, modular, and resilient manner. Key functionalities include:
 
 - **User Management:**
@@ -99,4 +98,3 @@ The project follows a **Clean/Hexagonal Architecture (Ports and Adapters)**, whi
 ![System Architecture](./assets/system%20architecture.png)
 
 ### Entity Relation Diagram
-

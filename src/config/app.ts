@@ -1,14 +1,14 @@
-import express, {Request, Response} from "express"
-import errorHandler from "../adapters/http/middleware/errorHandler"
+import express, { Request, Response } from "express";
+import errorHandler from "../adapters/http/middleware/errorHandler";
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
     status: "ok",
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
-app.use(errorHandler)
+app.use(errorHandler);
 
-export default app
+export default app;

@@ -1,4 +1,4 @@
-import {Document, model, Schema} from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
 export interface IUserDocument extends Document {
   firstName: string;
@@ -11,12 +11,12 @@ export interface IUserDocument extends Document {
 
 const UserSchema = new Schema<IUserDocument>(
   {
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    email: {type: String, required: true},
-    phone: {type: String, required: true},
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true },
   },
-  {timestamps: true}
-)
+  { timestamps: true },
+);
 
-export const userModel = model<IUserDocument>('User', UserSchema)
+export const userModel = model<IUserDocument>("User", UserSchema);

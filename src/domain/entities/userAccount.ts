@@ -1,4 +1,4 @@
-import { Money } from "../types/money"
+import { Money } from "../types/money";
 
 export class UserAccount {
   constructor(
@@ -9,14 +9,14 @@ export class UserAccount {
     public availableBalance: Money,
     public pendingDeposits: Money,
     public pendingWithdrawals: Money,
-    public pendingTransfers: Money
+    public pendingTransfers: Money,
   ) {
-    this.userId = userId
-    this.accountNumber = accountNumber
-    this.currency = currency
-    this.availableBalance = availableBalance
-    this.pendingDeposits = pendingDeposits
-    this.pendingWithdrawals = pendingWithdrawals
-    this.pendingTransfers = pendingTransfers
+    this.userId = userId;
+    this.accountNumber = accountNumber;
+    this.currency = currency;
+    this.availableBalance = availableBalance;
+    this.pendingDeposits = pendingDeposits;
+    this.pendingWithdrawals = pendingWithdrawals;
+    this.pendingTransfers = pendingTransfers;
   }
 }

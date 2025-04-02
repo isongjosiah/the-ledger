@@ -1,23 +1,34 @@
-import { ClientSession } from 'mongoose';
-import { IGeneralLedgerTransactionRepository } from '../../../domain/interfaces/generalLedgerTransaction';
-import { GeneralLedgerTransaction } from '../../../domain/entities/generalLedgerTransaction';
-import { GeneralLedgerTransactionModel, IGeneralLedgerTransactionDocument } from '../models/generalLedgerTransaction';
-import { Money } from '../../../domain/types/money';
+import { ClientSession } from "mongoose";
+import { IGeneralLedgerTransactionRepository } from "../../../domain/interfaces/generalLedgerTransaction";
+import { GeneralLedgerTransaction } from "../../../domain/entities/generalLedgerTransaction";
+import {
+  GeneralLedgerTransactionModel,
+  IGeneralLedgerTransactionDocument,
+} from "../models/generalLedgerTransaction";
+import { Money } from "../../../domain/types/money";
 
-export class GeneralLedgerTransactionRepository implements IGeneralLedgerTransactionRepository {
-  async create(transaction: GeneralLedgerTransaction, session?: ClientSession): Promise<GeneralLedgerTransaction> {
-    const createdDocs: IGeneralLedgerTransactionDocument[] = await GeneralLedgerTransactionModel.create(
-      [{
-        ledgerAccountId: transaction.ledgerAccountId,
-        transactionType: transaction.transactionType,
-        debit: transaction.debit,
-        credit: transaction.credit,
-        amount: transaction.amount,
-        transactionDate: transaction.transactionDate,
-        details: transaction.details,
-      }],
-      { session }
-    );
+export class GeneralLedgerTransactionRepository
+  implements IGeneralLedgerTransactionRepository
+{
+  async create(
+    transaction: GeneralLedgerTransaction,
+    session?: ClientSession,
+  ): Promise<GeneralLedgerTransaction> {
+    const createdDocs: IGeneralLedgerTransactionDocument[] =
+      await GeneralLedgerTransactionModel.create(
+        [
+          {
+            ledgerAccountId: transaction.ledgerAccountId,
+            transactionType: transaction.transactionType,
+            debit: transaction.debit,
+            credit: transaction.credit,
+            amount: transaction.amount,
+            transactionDate: transaction.transactionDate,
+            details: transaction.details,
+          },
+        ],
+        { session },
+      );
     const created = createdDocs[0];
     return new GeneralLedgerTransaction(
       String(created._id),
@@ -29,7 +40,7 @@ export class GeneralLedgerTransactionRepository implements IGeneralLedgerTransac
       created.transactionDate,
       created.details,
       created.createdAt,
-      created.updatedAt
+      created.updatedAt,
     );
   }
 
@@ -46,27 +57,37 @@ export class GeneralLedgerTransactionRepository implements IGeneralLedgerTransac
       doc.transactionDate,
       doc.details,
       doc.createdAt,
-      doc.updatedAt
+      doc.updatedAt,
     );
   }
 
-  async findByLedgerAccountId(ledgerAccountId: string): Promise<GeneralLedgerTransaction[]> {
-    const docs = await GeneralLedgerTransactionModel.find({ ledgerAccountId }).exec();
-    return docs.map(doc => new GeneralLedgerTransaction(
-      String(doc._id),
-      String(doc.ledgerAccountId),
-      doc.transactionType as "deposit" | "withdrawal" | "transfer",
-      new Money(doc.debit),
-      new Money(doc.credit),
-      new Money(doc.amount),
-      doc.transactionDate,
-      doc.details,
-      doc.createdAt,
-      doc.updatedAt
-    ));
+  async findByLedgerAccountId(
+    ledgerAccountId: string,
+  ): Promise<GeneralLedgerTransaction[]> {
+    const docs = await GeneralLedgerTransactionModel.find({
+      ledgerAccountId,
+    }).exec();
+    return docs.map(
+      (doc) =>
+        new GeneralLedgerTransaction(
+          String(doc._id),
+          String(doc.ledgerAccountId),
+          doc.transactionType as "deposit" | "withdrawal" | "transfer",
+          new Money(doc.debit),
+          new Money(doc.credit),
+          new Money(doc.amount),
+          doc.transactionDate,
+          doc.details,
+          doc.createdAt,
+          doc.updatedAt,
+        ),
+    );
   }
 
-  async update(transaction: GeneralLedgerTransaction, session?: ClientSession): Promise<GeneralLedgerTransaction> {
+  async update(
+    transaction: GeneralLedgerTransaction,
+    session?: ClientSession,
+  ): Promise<GeneralLedgerTransaction> {
     const updatedDoc = await GeneralLedgerTransactionModel.findByIdAndUpdate(
       transaction.id,
       {
@@ -78,11 +99,11 @@ export class GeneralLedgerTransactionRepository implements IGeneralLedgerTransac
         transactionDate: transaction.transactionDate,
         details: transaction.details,
       },
-      { new: true, session }
+      { new: true, session },
     ).exec();
 
     if (!updatedDoc) {
-      throw new Error('GeneralLedgerTransaction not found for update');
+      throw new Error("GeneralLedgerTransaction not found for update");
     }
     return new GeneralLedgerTransaction(
       String(updatedDoc._id),
@@ -94,7 +115,7 @@ export class GeneralLedgerTransactionRepository implements IGeneralLedgerTransac
       updatedDoc.transactionDate,
       updatedDoc.details,
       updatedDoc.createdAt,
-      updatedDoc.updatedAt
+      updatedDoc.updatedAt,
     );
   }
 }
