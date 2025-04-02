@@ -18,19 +18,20 @@ This document provides an overview of the backend project design, key architectu
 
 ## Overview
 
-![System Architecture](./assets/system architecture.png)
+![System Architecture](./assets/system%20architecture.png)
+
 The system is designed to handle user account management and transaction operations in a scalable, modular, and resilient manner. Key functionalities include:
 
 - **User Management:**
   Users can sign up, sign in, sign out, and refresh authentication tokens. User profiles store essential details (first name, last name, email, optional phone) along with an activity log.
-  ![User Auth Flow](./assets/authentication flow.png)
+  ![User Auth Flow](./assets/authentication%20flow.png)
 
 - **Transaction Operations:**  
   Users can perform deposits, withdrawals, and transfers. Each account is dedicated to a specific currency, supporting account-to-account transfers and reducing cache invalidation overhead. Transactions are processed using a transactional outbox pattern for atomicity.
 
 - **General Ledger:**  
   The General Ledger (GL) captures all financial movements as journal entries, ensuring that every transaction (deposit, withdrawal, transfer) updates both user account balances and corresponding GL accounts atomically.
-  ![Transaction Flow](./assets/transaction flow.png)
+  ![Transaction Flow](./assets/transaction%20flow.png)
 
 ## System Architecture
 
