@@ -18,12 +18,12 @@ This document provides an overview of the backend project design, key architectu
 
 ## Overview
 
-![System Architecture](./assets/system%20architecture.png)
 
 The system is designed to handle user account management and transaction operations in a scalable, modular, and resilient manner. Key functionalities include:
 
 - **User Management:**
   Users can sign up, sign in, sign out, and refresh authentication tokens. User profiles store essential details (first name, last name, email, optional phone) along with an activity log.
+
   ![User Auth Flow](./assets/authentication%20flow.png)
 
 - **Transaction Operations:**  
@@ -31,6 +31,7 @@ The system is designed to handle user account management and transaction operati
 
 - **General Ledger:**  
   The General Ledger (GL) captures all financial movements as journal entries, ensuring that every transaction (deposit, withdrawal, transfer) updates both user account balances and corresponding GL accounts atomically.
+
   ![Transaction Flow](./assets/transaction%20flow.png)
 
 ## System Architecture
@@ -95,18 +96,7 @@ The project follows a **Clean/Hexagonal Architecture (Ports and Adapters)**, whi
 
 ### Architecture Diagram
 
-```mermaid
-graph LR
-    A[Client (Web/Mobile)] --> B[API Gateway]
-    B --> C[Auth & Account Service]
-    C --> D[(User Database)]
-    C --> E[(Redis - Token Cache)]
-    B --> F[Transaction Service]
-    F --> G[(MongoDB - Transactions, Accounts)]
-    G --> H[Transactional Outbox]
-    H --> I[Message Queue (Redis Streams)]
-    I --> J[External Processing / Reconciliation]
-```
+![System Architecture](./assets/system%20architecture.png)
 
 ### Entity Relation Diagram
 
